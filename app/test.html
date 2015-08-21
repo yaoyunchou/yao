@@ -7,18 +7,18 @@
     
     <link rel="stylesheet" type="text/css" href="css/common.css"/>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
-    <script src="lib/seajs/sea.js" type="text/javascript" charset="utf-8"></script>
+    <script src="sea-modules/seajs/sea.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		seajs.config({
-			base:'./js',
+			base:'./sea-modules',
 			alias:{
-				'jq':'jquery1.42.min',
-				'ag':"./lib/angular/angular"
+				'jquery':'jquery/jquery1.42.min',
+				'ag':"angular/angular"
 				
 			}
 			
 		});
-		seajs.use(["ag","jq"])
+		seajs.use(["ag","common/demo"])
 			
 	   
 		
