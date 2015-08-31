@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2015/8/28.
- * ÕâÀïÖ»ÊÇ¸öĞ¡´úÂë¹ı³Ì
- * ÓĞpx(arr,boolern)    µÚÒ»¸ö²ÎÊıÊÇarr*   µÚ¶ş¸öÊÇ²¼¶ûÖµ   Ä¬ÈÏÎªfalse  Ñ¡Ìî
- * Ëæ±ã·ÅÈë10--100µÄÁù¸öÕûÊı²¢¶ÔÆäÅÅĞò;
+ * è¿™é‡Œåªæ˜¯ä¸ªå°ä»£ç è¿‡ç¨‹
+ * æœ‰px(arr,boolern)    ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯arr*   ç¬¬äºŒä¸ªæ˜¯å¸ƒå°”å€¼   é»˜è®¤ä¸ºfalse  é€‰å¡«
+ * éšä¾¿æ”¾å…¥10--100çš„å…­ä¸ªæ•´æ•°å¹¶å¯¹å…¶æ’åº;
  */
 var arr=[];
 console.log(arr.length);
@@ -19,34 +19,69 @@ while(arr.length<6){
 console.log(arr);
 px(arr);
 px(arr,true);
-/*ÅÅĞò·½·¨*/
+/*æ’åºæ–¹æ³•*/
 function px(arr,boolern){
-   var bool=boolern?boolern:false;
-   if(bool){
-       /*ÓÉĞ¡µ½´óÅÅĞò*/
-       for(var i=0; i<arr.length; i++){
-           for(var j=arr.length-1; j>=i;j--){
-               if(arr[j]<arr[j-1]){
-                   swape(arr,j,j-1);
-               }
-           }
-       }
-   }else{
-       for(var i=0; i<arr.length; i++){
-           for(var j=arr.length-1; j>i;j--){
-               if(arr[j]>arr[j-1]){
-                   swape(arr,j-1,j);
-               }
-           }
-       }
+    var bool=boolern?boolern:false;
+    if(bool){
+        /*ç”±å°åˆ°å¤§æ’åº*/
+        for(var i=0; i<arr.length; i++){
+            for(var j=arr.length-1; j>=i;j--){
+                if(arr[j]<arr[j-1]){
+                    swape(arr,j,j-1);
+                }
+            }
+        }
+    }else{
+        for(var i=0; i<arr.length; i++){
+            for(var j=arr.length-1; j>i;j--){
+                if(arr[j]>arr[j-1]){
+                    swape(arr,j-1,j);
+                }
+            }
+        }
 
-   }
+    }
     console.log(arr);
 }
 
-/*½»»»º¯Êı*/
+/*äº¤æ¢å‡½æ•°*/
 function swape(arr,a,b){
     var tem=arr[b];
     arr[b]=arr[a];
     arr[a]=tem;
+}
+
+
+//js æ‰«é›·
+person= new Object();
+person.name="yaoyunchou";
+person.age="25";
+person.gender="ç”·";
+console.log("å§“å:"+person.name+"å¹´é¾„:"+person.age+"æ€§åˆ«:"+person.gender);
+
+
+yao={
+    name:"å§šè¿ç­¹",
+    age:"25",
+    speak:function(){
+        console.log("æˆ‘å–œæ¬¢é»„ç¨‹!!!");
+    },
+    run:function(){
+        console.log("æˆ‘èƒ½èµ°å¤šè¿œå‘¢?")
+    }
+
+};
+
+yao.run();
+console.log(yao.age);
+
+
+var arr2 =new Array();
+
+for(var i=1; i<=10;i++){
+    arr2[i]=new Array();
+    for(var j=1;j<=10;j++){
+        arr2[i][j]="*";
+        console.log("*");
+    }
 }
