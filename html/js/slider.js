@@ -3,7 +3,7 @@
  */
 (function(window,underfind){
     function yao(a) {
-        new fun(a);
+            new fun(a);
     }
     var fun;
     yao.version = "1.0", yao.author = "yaoyunchou";
