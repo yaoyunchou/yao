@@ -11,11 +11,16 @@
              this.config=a||{};
 
         },fun.prototype.run=function(){
-             console.log("I can fly!");
+              if(!this.config.run){
+                  console.log("I can fly!");
+              }
+
          },fun.prototype.rt=function(){
              var c = this.config;
              console.log(c.page);
-         }
+         },fun.prototype.render=function(a){
+              this.config.run();
+          }
 
 
     "function" == typeof define ? define(function() {
@@ -35,6 +40,10 @@
 */
 })(window);
 
-console.log(yao({"page":100}).rt(a));
+yao({"page":100,
+     run:function(){
+         console.log("okok");
+     }
+})
 
 
