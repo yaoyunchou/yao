@@ -3,9 +3,12 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/js/filters.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/js/hello word.js" charset="GBK" />
+<<<<<<< HEAD
     <file url="file://$PROJECT_DIR$/app/js/排序.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/html/js/js day03test.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/html/js/slider.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/html/js/继承.js" charset="UTF-8" />
+=======
+>>>>>>> parent of 41aeff6... webstrom
   </component>
 </project>
