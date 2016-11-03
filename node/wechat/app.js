@@ -7,6 +7,7 @@ var wechat = require('./wechat/g');
 var path = require('path');
 var util = require('./libs/util');
 var wechat_file = path.join(__dirname,'./config/wechat.txt');
+var weixin = require('./weixin');
 
 var config = {
 	wechat: {
@@ -23,7 +24,7 @@ var config = {
 	}
 };
 var app = new Koa();
-app.use(wechat(config.wechat));
+app.use(wechat(config.wechat,weixin.reply));
 
 app.listen(80);
 

@@ -26,5 +26,5 @@ exports.writeFileAsync = function (fpth,content){
 				resolve(content);
 			}
 		});
-	})
+	});
 };

@@ -1,10 +1,12 @@
 /**
  * Created by yao on 2016/10/29.
  */
+/*global exports*/
 "use strict";
 var xml2js = require('xml2js');
 var Promise = require('bluebird');
 var _ = require('lodash');
+var template = require('./template');
 exports.parseXMLAsync = function(xml){
 	console.log('this is before xml2js'+xml);
 	return new Promise(function (resolve,reject){
@@ -37,7 +39,7 @@ var formatMessage = function formatMessage(result){
 				}
 			}else{
 				message[key] = [];
-				_.forEach(item,function(val){
+				_.forEach(item,function(){
 					message[key].push(formatMessage(item));
 				});
 			}
@@ -47,3 +49,20 @@ var formatMessage = function formatMessage(result){
 };
 
 exports.formatMessage = formatMessage;
+
+exports.tpl = function tpl(content,message){
+	var info = {};
+	var type = 'text';
+	var formUserName = message.FromUserName;
+	var toUsername = message.ToUserName;
+
+	if(content){
+		type = content.type||type;
+	}
+	info.content = content;
+	info.createTime = new Date().getTime();
+	info.msgType = type;
+	info.toUserName = toUsername;
+	info.formUserName = formUserName;
+	return template.compiled(info);
+};
