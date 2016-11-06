@@ -1,8 +1,15 @@
 /**
  * Created by yao on 2016/11/3.
+ *
+ * 这个是主要处理的逻辑层,我们会对返回的内容做对应的处理,最后由wechat的那个逻辑类来返回正确的内容
+ *
  */
 "use strict";
 
+
+var  config = require('./config');
+var Wechat = require('./wechat/wechat');
+var wechatApi = new Wechat(config.wechat);
 exports.reply = function* (next){
 	var message = this.weixin;
 	if(message.MsgType ==='event'){
@@ -14,5 +21,52 @@ exports.reply = function* (next){
 		}else if(message.Event==='unsubscribe'){
 			console.log('取消关注!');
 		}
+		else if(message.Event ==='location'){
+			this.body = "您的上报位置是:"+message.latitude+'/'+message.longitude+'-'+message.Precision;
+		}else if(message.Event ==='CLICK'){
+			this.body = '您了菜单'+message.EventKey;
+		}else if(message.Event === 'scan'){
+			console.log('关注后扫二维码'+message.EventKey+''+message.Ticket);
+			this.body = "看见您扫了一下哦!";
+		}else if(message.Event ==='view'){
+			this.body = '您点击了菜单中的链接:'+ message.EventKey;
+		}else{
+			console.log("do nothing!");
+		}
+	}else if(message.MsgType ==='location'){
+		this.body = "您的上报位置是:"+message.Location_X+'/'+message.Location_Y+'-'+message.Label;
+			console.log("do nothing!");
+	}else if(message.MsgType === 'text'){
+		var content  = message.Content;
+		var replay = '额,您说的'+message.Content+'太复杂了,我无法理解';
+		if(content === '1'){
+			replay ='我是程序员';
+		}else if(content ==="黄程"){
+			replay = "我爱你,老婆!";
+		}else if(content === '4'){
+			replay  = [{
+				title:'技术改变世界!',
+				description:'我是程序员',
+				picUrl:'http://cmstest.51yxwz.com/27616_MP/resource/images/20160721174701000592.jpg',
+				url:'https://github.com'
+
+			},{
+				title:'Nodejs 开发微信 !',
+				description:'我是程序员',
+				picUrl:'http://yaoyunchoutest.p.imooc.io/2.jpg',
+				url:'https://nodejs.org/'
+
+			}];
+		}else if(content === '5'){
+            var data = yield wechatApi.uploadMaterial('image',__dirname+'/2.jpg');
+            replay = {
+                type:'image',
+                mediaId:data.media_id
+            };
+        }
+		this.body = replay;
 	}
+
+
+	yield next;
 };

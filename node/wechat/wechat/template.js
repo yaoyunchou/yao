@@ -12,13 +12,27 @@ var template = heredoc(function () {/*
  <FromUserName><![CDATA[<%= toUserName %>]]></FromUserName>
  <CreateTime><%= createTime %></CreateTime>
  <MsgType><![CDATA[<%= msgType %>]]></MsgType>
- <%= if(msgType==='image'){ %>
- <MediaId><![CDATA[<%= media_id %>]]></MediaId>
+ <% if(msgType==='image'){ %>
+ <Image>
+ <MediaId><![CDATA[<%= content.mediaId%>]]></MediaId>
+ </Image>
  <% }else if(msgType==='text'){ %>
  <Content><![CDATA[ <%= content %>]]></Content>
  <% }else if(msgType==='voice'){ %>
- <MediaId><![CDATA[<%= media_id%>]]></MediaId>
+ <MediaId><![CDATA[<%= content.mediaId%>]]></MediaId>
  <Format><![CDATA[<%= Format%>]]></Format>
+ <% }else if(msgType==='news'){ %>
+ <ArticleCount><%= content.length %></ArticleCount>
+ <Articles>
+ <% content.forEach(function(item){ %>
+ <item>
+ <Title><![CDATA[<%= item.title1%>]]></Title>
+ <Description><![CDATA[<%= item.description1 %>]]></Description>
+ <PicUrl><![CDATA[<%= item.picUrl%>]]></PicUrl>
+ <Url><![CDATA[<%= item.url%>]]></Url>
+ </item>
+ <%})%>
+ </Articles>
  <% }%>
  </xml>
  */

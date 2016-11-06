@@ -58,6 +58,9 @@ exports.tpl = function tpl(content,message){
 
 	if(content){
 		type = content.type||type;
+		if(content instanceof Array){
+			type = 'news';
+		}
 	}
 	info.content = content;
 	info.createTime = new Date().getTime();
