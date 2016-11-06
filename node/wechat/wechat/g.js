@@ -43,13 +43,17 @@ module.exports = function (opts,handler) {
 				limit: 'lmb',
 				encoding: this.charset
 			});
+			console.log('没有编译过的：');
+			console.log(data);
 			var content = yield util.parseXMLAsync(data);
+			console.log("这个就不知道编译过没有");
 			console.log(content);
 			var message = util.formatMessage(content.xml);
+			console.log("完成对象化的转换:");
 			console.log(message);
 
 			this.weixin = message;
-
+			//把message拿到后就交给业务层;
 			yield  handler.call(this,next);
 			wechat.reply.call(this);
 		}

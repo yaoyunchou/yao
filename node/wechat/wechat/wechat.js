@@ -53,7 +53,7 @@ Wechat.prototype.updateAccessToken = function () {
 	var appSecret = this.appSecret;
 	var url = api.accessToken + '&appid=' + appID + '&secret=' + appSecret;
 
-	return new Promise(function (resolve, reject) {
+	return new Promise(function (resolve) {
 		request({url: url, json: true}).then(function (response) {
 			var data = response[1];
 			var now = new Date().getTime();
@@ -67,11 +67,11 @@ Wechat.prototype.updateAccessToken = function () {
 };
 
 Wechat.prototype.reply = function(){
-	var content = this.body;
+	var content= this.body;
 	var message = this.weixin;
 	var xml = util.tpl(content,message);
 	this.status = 200;
-	this.type = 'text';
+	this.type ='application/xml';
 	this.body = xml;
 };
 

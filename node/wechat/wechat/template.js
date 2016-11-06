@@ -8,11 +8,18 @@ var heredoc = require('heredoc');
 
 var template = heredoc(function () {/*
  <xml>
- <ToUserName><![CDATA[<%= toUserName %>]]></ToUserName>
- <FromUserName><![CDATA[<%= formUserName %>]]></FromUserName>
+ <ToUserName><![CDATA[<%= formUserName %>]]></ToUserName>
+ <FromUserName><![CDATA[<%= toUserName %>]]></FromUserName>
  <CreateTime><%= createTime %></CreateTime>
  <MsgType><![CDATA[<%= msgType %>]]></MsgType>
+ <%= if(msgType==='image'){ %>
+ <MediaId><![CDATA[<%= media_id %>]]></MediaId>
+ <% }else if(msgType==='text'){ %>
  <Content><![CDATA[ <%= content %>]]></Content>
+ <% }else if(msgType==='voice'){ %>
+ <MediaId><![CDATA[<%= media_id%>]]></MediaId>
+ <Format><![CDATA[<%= Format%>]]></Format>
+ <% }%>
  </xml>
  */
 });
