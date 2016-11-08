@@ -1,6 +1,7 @@
 /**
  * Created by yao on 2016/11/3.
  */
+/*global __dirname,module*/
 "use strict";
 var path = require('path');
 var wechat_file = path.join(__dirname,'./config/wechat.txt');

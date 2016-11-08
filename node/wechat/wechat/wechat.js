@@ -5,15 +5,9 @@
 var Promise = require('bluebird');
 var util = require('./util');
 var request = Promise.promisify(require('request'));
-var prefix = 'https://api.weixin.qq.com/cgi-bin/';
+var _ = require('lodash');
 var fs = require('fs');
-var api = {
-    accessToken: prefix + 'token?grant_type=client_credential',
-    material: {
-        create: prefix + 'media/upload?',
-        list: prefix + 'material/add_news9'
-    }
-};
+var api = require('./api');
 
 function Wechat(opts) {
     var that = this;
@@ -80,22 +74,45 @@ Wechat.prototype.updateAccessToken = function () {
     });
 
 };
-Wechat.prototype.uploadMaterial = function (type, filePath) {
+Wechat.prototype.uploadMaterial = function (type, material,permanent) {
+    /*1.上传的接口分为临时和永久上传
+    * 2.永久素材分为图片的,图文的,和其他的部分
+    * 3.图片和其他的都是需要路径的,所以这里的material是路径在图文的时候变成数组的数据
+    * */
     var that = this;
-    var form = {
-        media: fs.createReadStream(filePath)
-    };
+    var form = {};
+    var uploadUrl = api.material.temporary.upload;
+    //处理上传逻辑
+    if(permanent){
+        uploadUrl = api.material.permanent.upload;
+        _.extend(form,permanent);
+    }
+    if(type ==='pic'){
+        uploadUrl = api.material.permanent.uploadNewPic;
+    }
+    if(type === 'news'){
+        uploadUrl = api.material.permanent.uploadNews;
+        form = material;
+    }else{
+        form.media = fs.createReadStream(material);
+    }
     return new Promise(function (resolve) {
         that.fetchAccessToken().then(function (data) {
-            var url = api.material.create + 'access_token=' + data.access_token + '&type=' + type;
+
+            var url = uploadUrl + 'access_token=' + data.access_token ;
+            if(permanent){
+                form.access_token = data.access_token;
+            }else{
+                url+= '&type=' + type;
+            }
             var options = {
                 method: 'POST',
                 url: url,
-                formData: form,
                 json: true
-            }
+            };
+
             request(options).then(function (res) {
-                var _data = res[1]
+                var _data = res[1];
                 if (_data) {
                     resolve(_data);
                 } else {
