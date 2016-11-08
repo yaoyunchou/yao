@@ -21,6 +21,12 @@ var template = heredoc(function () {/*
  <% }else if(msgType==='voice'){ %>
  <MediaId><![CDATA[<%= content.mediaId%>]]></MediaId>
  <Format><![CDATA[<%= Format%>]]></Format>
+ <% }else if(msgType==='video'){ %>
+ <Video>
+ <MediaId><![CDATA[<%= content.mediaId%>]]></MediaId>
+ <Title><![CDATA[<%= content.title %>]]></Title>
+ <Description><![CDATA[<%= content.description %>]]></Description>
+ </Video>
  <% }else if(msgType==='news'){ %>
  <ArticleCount><%= content.length %></ArticleCount>
  <Articles>

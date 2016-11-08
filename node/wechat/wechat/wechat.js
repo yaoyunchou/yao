@@ -87,8 +87,8 @@ Wechat.prototype.uploadMaterial = function (type, material,permanent) {
         uploadUrl = api.material.permanent.upload;
         _.extend(form,permanent);
     }
-    if(type ==='pic'){
-        uploadUrl = api.material.permanent.uploadNewPic;
+    if(type ==='newsImg'){
+        uploadUrl = api.material.permanent.uploadImage;
     }
     if(type === 'news'){
         uploadUrl = api.material.permanent.uploadNews;
@@ -96,7 +96,7 @@ Wechat.prototype.uploadMaterial = function (type, material,permanent) {
     }else{
         form.media = fs.createReadStream(material);
     }
-    return new Promise(function (resolve) {
+    return new Promise(function (resolve,reject) {
         that.fetchAccessToken().then(function (data) {
 
             var url = uploadUrl + 'access_token=' + data.access_token ;
@@ -110,7 +110,11 @@ Wechat.prototype.uploadMaterial = function (type, material,permanent) {
                 url: url,
                 json: true
             };
-
+            if(type === 'news'){
+                options.body = material;
+            }else{
+                options.formData = form;
+            }
             request(options).then(function (res) {
                 var _data = res[1];
                 if (_data) {
@@ -124,13 +128,48 @@ Wechat.prototype.uploadMaterial = function (type, material,permanent) {
         });
     });
 };
+Wechat.prototype.loadMaterial = function loadMaterial(permanent) {
+    var that = this;
+    var form = {
+        type:'image',
+        offset:0,
+        count:10
+    };
+    if(permanent){
+        _.extend(form,permanent);
+    }
+    var uploadUrl = api.material.list;
 
+    return new Promise(function (resolve,reject) {
+        that.fetchAccessToken().then(function (data) {
+
+            var url = uploadUrl + 'access_token=' + data.access_token ;
+            var options = {
+                method: 'POST',
+                url:url,
+                formData:form,
+                json: true
+            };
+            request(options).then(function (res) {
+                var _data = res[1];
+                if (_data) {
+                    resolve(_data);
+                } else {
+                    throw new Error('load material fails');
+                }
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    });
+};
 Wechat.prototype.reply = function () {
     var content = this.body;
     var message = this.weixin;
     var xml = util.tpl(content, message);
     this.status = 200;
     this.type = 'application/xml';
+    console.log(xml);
     this.body = xml;
 };
 

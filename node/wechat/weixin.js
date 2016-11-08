@@ -63,7 +63,43 @@ exports.reply = function* (next){
                 type:'image',
                 mediaId:data.media_id
             };
-        }
+        }else if(content === '51'){
+			var data = yield wechatApi.uploadMaterial('newsImg',__dirname+'/2.jpg',{});
+			replay = {
+				type:'text',
+				content:"<a href='"+data.url+"'>链接</a>"
+			};
+		}else if(content === '6'){
+			var data = yield wechatApi.uploadMaterial('video',__dirname+'/1.mp4',{
+				type:'video',description:"{title:'111', introduction:22222}"
+			});
+			console.log("返回的data是:"+JSON.stringify(data));
+			replay = {
+				title:'打球',
+				type:'video',
+				description:'没有描述的视频',
+				mediaId:data.media_id
+			};
+		}else if(content === '7'){
+			var data = yield wechatApi.uploadMaterial('video',__dirname+'/1.mp4');
+			console.log("返回的data是:"+JSON.stringify(data));
+			replay = {
+				title:'打球',
+				type:'video',
+				description:'没有描述的视频',
+				mediaId:data.media_id
+			};
+		}else if(content === '8'){
+			var data = yield wechatApi.loadMaterial({type:'video'});
+			console.log("返回的data是:"+JSON.stringify(data));
+			// replay = {
+			// 	title:'打球',
+			// 	type:'video',
+			// 	description:'没有描述的视频',
+			// 	mediaId:data.media_id
+			// };
+		}
+		console.log("返回的replay是:"+JSON.stringify(replay));
 		this.body = replay;
 	}
 

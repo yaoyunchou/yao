@@ -12,7 +12,8 @@ var api = {
             uploadNews:prefix+'material/add_news?',
             uploadImage:prefix+'media/uploadimg?',
             upload:prefix+'material/add_material?'
-        }
+        },
+        list:prefix+'material/batchget_material?'
     }
 
 };
