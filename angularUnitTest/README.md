@@ -1,0 +1,1 @@
+this is an example angularjs project showing how to make unit test.
