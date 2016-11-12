@@ -90,14 +90,11 @@ exports.reply = function* (next){
 				mediaId:data.media_id
 			};
 		}else if(content === '8'){
-			var data = yield wechatApi.loadMaterial({type:'video'});
+			var data = yield wechatApi.loadMaterial({});
 			console.log("返回的data是:"+JSON.stringify(data));
-			// replay = {
-			// 	title:'打球',
-			// 	type:'video',
-			// 	description:'没有描述的视频',
-			// 	mediaId:data.media_id
-			// };
+		}else if(content === '9'){
+			var data = yield wechatApi.getMaterialCount();
+			console.log("返回的data是:"+JSON.stringify(data));
 		}
 		console.log("返回的replay是:"+JSON.stringify(replay));
 		this.body = replay;

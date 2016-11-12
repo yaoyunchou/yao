@@ -13,7 +13,9 @@ var api = {
             uploadImage:prefix+'media/uploadimg?',
             upload:prefix+'material/add_material?'
         },
-        list:prefix+'material/batchget_material?'
+        list:prefix+'material/batchget_material?',
+        count:prefix+'material/get_materialcount?'
+       // count:prefix+'material/get_materialcount?'
     }
 
 };

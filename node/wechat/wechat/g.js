@@ -22,6 +22,7 @@ module.exports = function (opts,handler) {
 		var echostr = this.query.echostr;
 		var str = [token, timestamp, nonce].sort().join('');
 		var sha = sha1(str);
+		console.log('我是访问路径：'+this.path);
 		if (this.method === 'GET') {
 			if (sha === signature) {
 				this.body = echostr + '';

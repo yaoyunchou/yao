@@ -144,6 +144,7 @@ Wechat.prototype.loadMaterial = function loadMaterial(permanent) {
         that.fetchAccessToken().then(function (data) {
 
             var url = uploadUrl + 'access_token=' + data.access_token ;
+            url = url.replace(/https:/,'http:')
             var options = {
                 method: 'POST',
                 url:url,
@@ -156,6 +157,36 @@ Wechat.prototype.loadMaterial = function loadMaterial(permanent) {
                     resolve(_data);
                 } else {
                     throw new Error('load material fails');
+                }
+            }).catch(function (err) {
+                reject(err);
+            });
+        });
+    });
+};
+
+Wechat.prototype.getMaterialCount = function getMaterialCount() {
+    var that = this;
+
+
+    var uploadUrl = api.material.count;
+
+    return new Promise(function (resolve,reject) {
+        that.fetchAccessToken().then(function (data) {
+
+            var url = uploadUrl + 'access_token=' + data.access_token ;
+            //url = url.replace('https://','http://')
+            var options = {
+                method: 'get',
+                url:url,
+                json: false
+            };
+            request(options).then(function (res) {
+                var _data = res[1];
+                if (_data) {
+                    resolve(_data);
+                } else {
+                    throw new Error('load material count fails');
                 }
             }).catch(function (err) {
                 reject(err);
