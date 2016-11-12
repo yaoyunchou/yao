@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-{"access_token":"jIei0qhDfz7SyAfkt07S-cDiYhcGTDA-JcCrA22TOdL49gKuibxvCLdCQ0itr5xwa4HcSqqrcjeNSpVcdLa5OaFgnkyK5ozTYHdZuOrZ0L2yUybUZUSKdA9dymuSdvQDNRHfAAAEIY","expires_in":1478797963203}
-=======
-{"access_token":"oOAUx3I_nMKEXGIF2UnJbIJ_AoNTpGzBz_pa-1FIi7OT5UR-3INPQMBYHs7EzA7618phbygVl-P2g9K349wHJUEC-MvUU8-xT_A_2qjp5TvXeF5xEzoEiNSQvDqHlDwTBZGiACAIGN","expires_in":1478871044503}
->>>>>>> 8070fe93041722ff29952256858d1c78c6c6f580
