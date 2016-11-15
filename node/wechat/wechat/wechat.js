@@ -111,7 +111,7 @@ Wechat.prototype.uploadMaterial = function (type, material,permanent) {
                 json: true
             };
             if(type === 'news'){
-                options.body = material;
+                options.body = form;
             }else{
                 options.formData = form;
             }
@@ -148,7 +148,7 @@ Wechat.prototype.loadMaterial = function loadMaterial(permanent) {
             var options = {
                 method: 'POST',
                 url:url,
-                formData:form,
+                body:form,
                 json: true
             };
             request(options).then(function (res) {
@@ -197,11 +197,15 @@ Wechat.prototype.getMaterialCount = function getMaterialCount() {
 Wechat.prototype.reply = function () {
     var content = this.body;
     var message = this.weixin;
-    var xml = util.tpl(content, message);
     this.status = 200;
     this.type = 'application/xml';
-    console.log(xml);
-    this.body = xml;
+    if(this.path === '/'){
+        var xml = util.tpl(content, message);
+        console.log(xml);
+        this.body = xml;
+    }
+
+
 };
 
 

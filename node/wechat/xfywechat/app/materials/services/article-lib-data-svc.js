@@ -72,7 +72,7 @@
 			};
 
 			materialsDataSvc.registerItemCreated(materialCreated);
-			service.loadData();
+			//service.loadData();
 			return service;
 		}]);
 
