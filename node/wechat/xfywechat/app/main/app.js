@@ -5,7 +5,7 @@
 
 		.config(['$stateProvider', '$urlRouterProvider','$httpProvider', function ($stateProvider, $urlRouterProvider,$httpProvider) {
 			/*$httpProvider.responseInterceptors.push('platformHttpInterceptor');*/
-			$urlRouterProvider.when("", '/wechat');
+			$urlRouterProvider.when("", '/materialsList');
 			$stateProvider
 				.state('wechat', {
 					url: '/wechat',
