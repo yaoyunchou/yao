@@ -1,0 +1,40 @@
+{
+  "name": "myKoajsRestApp",
+  "version": "2.1.0",
+  "description": "A simple Koajs 2.0 REST Application Skeleton in ES6 style",
+  "author": {
+    "name": "Oleg Cherniy",
+    "email": "oleg.cherniy@gmail.com"
+  },
+  "directories": {
+    "lib": "./app/controllers",
+    "test": "./test"
+  },
+  "dependencies": {
+    "amqplib": "*",
+    "babel-preset-es2015-node6": "^0.3.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.14.0",
+    "co": "*",
+    "config": "*",
+    "koa": ">=2.x",
+    "koa-body": "*",
+    "koa-bodyparser": "*",
+    "koa-convert": "*",
+    "koa-render": "*",
+    "koa-router": ">=7.x.x"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "jasmine-node": "*",
+    "optimist": "*"
+  },
+  "scripts": {
+    "start": "node --harmony index.js",
+    "test": "node --harmony ./node_modules/jasmine-node/lib/jasmine-node/cli.js spec"
+  },
+  "engines": {
+    "node": ">=6.0.x"
+  }
+}
