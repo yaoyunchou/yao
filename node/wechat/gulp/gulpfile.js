@@ -17,7 +17,7 @@ var ROOT = wechatConfig.root;
 var PROGRAM = ROOT + 'app/';
 var PLUGIN = ROOT + 'plugins/';
 var DES_PATH = ROOT + 'target/';
-var Debug = false;
+var Debug = true;
 
 
 /*******************************************************************************************************************************************************************************/
@@ -111,7 +111,7 @@ gulp.task('concatFrames', function () {
 	return gulp.src(getPluginScripts('frames'))
 		//.pipe(sourcemaps.init())
 		.pipe(concat('frames.min.js'))
-		.pipe(jsmin())
+		//.pipe(jsmin())
 		.pipe(uglify())
 		//.pipe(sourcemaps.write('/'))
 		.pipe(gulp.dest(DES_PATH));
@@ -120,7 +120,7 @@ gulp.task('concatTools', function () {
 	return gulp.src(getPluginScripts('tools'))
 			//.pipe(sourcemaps.init())
 			.pipe(concat('tools.min.js'))
-			.pipe(jsmin())
+			//.pipe(jsmin())
 			.pipe(uglify())
 			//.pipe(sourcemaps.write('/'))
 			.pipe(gulp.dest(DES_PATH));
@@ -130,7 +130,7 @@ gulp.task('concatTools', function () {
 gulp.task('concatComponents', function () {
 	return gulp.src(getProgramScripts())
 		.pipe(concat('conponent.min.js'))
-		.pipe(jsmin())
+		//.pipe(jsmin())
 		.pipe(uglify())
 		.pipe(gulp.dest(DES_PATH));
 });

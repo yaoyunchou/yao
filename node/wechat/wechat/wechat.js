@@ -198,14 +198,14 @@ Wechat.prototype.reply = function () {
     var content = this.body;
     var message = this.weixin;
     this.status = 200;
-    this.type = 'application/xml';
-    if(this.path === '/'){
+    if(this.api){
+        this.type = 'application/json';
+        this.body = content;
+    }else{
+        this.type = 'application/xml';
         var xml = util.tpl(content, message);
-        console.log(xml);
         this.body = xml;
     }
-
-
 };
 
 

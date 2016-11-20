@@ -10,6 +10,7 @@
 var config = require('./config');
 var Wechat = require('./wechat/wechat');
 var wechatApi = new Wechat(config.wechat);
+exports.wechatApi = new Wechat(config.wechat);
 exports.reply = function*(next) {
     var message = this.weixin;
     if (message.MsgType === 'event') {
@@ -136,3 +137,4 @@ exports.reply = function*(next) {
 
     yield next;
 };
+
