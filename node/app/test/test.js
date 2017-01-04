@@ -15,3 +15,11 @@ res.end('Hello World\n');
 server.listen(port, hostname, () => {
 	console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+var a = [];
+for (var i = 0; i < 10; i++) {
+	(function (j) {
+		console.log(j);
+		a[j]=j;
+	}(i));
+}
