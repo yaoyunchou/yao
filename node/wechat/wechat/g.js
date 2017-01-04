@@ -6,8 +6,7 @@ var sha1 = require('sha1');
 var getRawBody = require('raw-body');
 var util = require('./util');
 var Wechat = require('./wechat');
-var route = require('koa-router')();
-
+var materal = require('./service/materal');
 
 
 module.exports = function (opts,handler) {
@@ -23,40 +22,40 @@ module.exports = function (opts,handler) {
 		var str = [token, timestamp, nonce].sort().join('');
 		var sha = sha1(str);
 		console.log('我是访问路径：'+this.path);
-		route.post('/books', function *list(next){
-			if ('POST' != this.method) {
-				return yield next;
+
+
+		if(this.path === '/material/materialInfoImage') {
+			yield  materal.imgList.call(this, next);
+		}else if(this.path === '/material/materialInfoNews') {
+			yield  materal.newsList.call(this, next);
+		}else if(this.path === ''){
+			if (this.method === 'GET') {
+				if (sha === signature) {
+					this.body = echostr + '';
+				} else {
+					this.body = 'wrong';
+				}
 			}
-			var book = yield getRawBody(this, {
-				limit: '1kb'
-			});
-			this.body = book;
-		});
+			else if (this.method === 'POST') {
+				if (sha !== signature) {
+					this.body = 'wrong';
+					//this.body = echostr + '';
+					return false;
+				}
+				var data = yield getRawBody(this.req, {
+					length: this.length,
+					limit: 'lmb',
+					encoding: this.charset
+				});
+				var content = yield util.parseXMLAsync(data);
+				var message = util.formatMessage(content.xml);
+				this.weixin = message;
+				//把message拿到后就交给业务层;
+				yield  handler.call(this,next);
 
-
-		if (this.method === 'GET') {
-			if (sha === signature) {
-				this.body = echostr + '';
-			} else {
-				this.body = 'wrong';
 			}
 		}
-		else if (this.method === 'POST') {
-			if (sha !== signature) {
-				this.body = 'wrong';
-				//this.body = echostr + '';
-				return false;
-			}
-			var data = yield getRawBody(this.req, {
-				length: this.length,
-				limit: 'lmb',
-				encoding: this.charset
-			});
-			var content = yield util.parseXMLAsync(data);
-			var message = util.formatMessage(content.xml);
-			this.weixin = message;
-			//把message拿到后就交给业务层;
-			yield  handler.call(this,next);
+		if(this.body){
 			wechat.reply.call(this);
 		}
 	};

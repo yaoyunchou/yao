@@ -3,9 +3,9 @@
  */
 "use strict";
 
-var globals = require('../src/main/resources/static/app/main/globals.js').globals;
+var globals = require('../view/app/main/globals.js').globals;
 
-var root = '../src/main/resources/static/';
+var root = '../view/';
 var plugin = root + 'plugins/';
 module.exports = {
 	'root': root,
