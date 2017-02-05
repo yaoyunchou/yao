@@ -1,0 +1,16 @@
+ <!--<icon class= "time-btn" type="waiting_circle" size="45"/>-->
+ <view class = "container calendar">
+        <view class = "calendar-header">
+            <image class ="calendar-left" bindtap="preMonth" src="http://wxxcx.nsw99.com/images/calendar-arrow-left.png" mode="aspectFit"></image>
+            <text>{{today}}</text>        
+            <image class ="calendar-right" bindtap="nextMonth"  src="http://wxxcx.nsw99.com/images/calendar-arrow-right.png" mode="aspectFit"></image>
+        </view>
+        <view class = "row">
+            <view class="th" wx:for = "{{weekly}}" wx:key="ids">{{item}}</view>
+        </view>
+        <view class = "row" wx:for = "{{days}}" wx:key ="ids" wx:for-item="dataWeekly">
+                <view wx:for = "{{dataWeekly}}" wx:key ="ids" class = "td">
+                     <text   bindtap="selectDay" data-date ="{{item.num}}"  class="{{item.isSelect ? 'isSelect' : ''}} {{item.isToday ? 'today' : ''}} {{index===0||index===6?'rad':''}}">{{item.num||''}}</text> 
+                </view>
+        </view>
+ </view>

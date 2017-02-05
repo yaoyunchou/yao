@@ -1,0 +1,27 @@
+/**app.wxss**/
+.clearfix{
+    clear: both;
+}
+.container{
+    padding: 20rpx;
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+/*list  列表组件*/
+.list{
+    width:100%;
+    margin-bottom: 22rpx;
+}
+.list .title{
+    display: block;
+  height: 50rpx;
+  color:#EF8200;
+  font-size:36rpx;
+  border-bottom:1px solid #f8f7f7;
+  margin-bottom: 20rpx;
+}
+.list .info{
+    line-height: 36rpx;
+    font-size:34rpx;
+    color:#515567;
+}
