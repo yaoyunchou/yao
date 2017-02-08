@@ -1,7 +1,12 @@
 //index.js
 //获取应用实例
 var app = getApp();
-var data = require('../../pageInfos');
+var data = [];
+for(var i=0;i<31;i++){
+ data.push(require('../../day'+i));
+}
+console.log(data);
+
 if (!data.isPlay) {
   data.isPlay = false;
 }
