@@ -1,0 +1,35 @@
+{
+    "prodHostName": "my_server",
+    "dev": {
+        "password": "hi",
+        "webservicePort": 3000,
+        "webserviceUseHttps": true,
+        "webserviceSslKeyPath": "./sample_ssl_creds/server.key",
+        "webserviceSslCertPath": "./sample_ssl_creds/server.crt",
+        "webserviceSslCaPath": "./sample_ssl_creds/ca.crt",
+        "webserviceWebsiteDir": "./../admin_website",
+        "webserviceWhitelistedHost": "",
+        "shouldServePublicWebsite": true,
+        "publicWebsitePort": 3001,
+        "publicWebsiteDir": "./../public_website",
+        "publicWebsiteOutputDir": "./../public_website\\exported_documents",
+        "publicWebsiteTreePath": "./../public_website\\exported_documents\\tree.json",
+        "prefsPath": "./prefs.json"
+    },
+    "prod": {
+        "password": "hi",
+        "webservicePort": 3000,
+        "webserviceUseHttps": true,
+        "webserviceSslKeyPath": "./sample_ssl_creds/server.key",
+        "webserviceSslCertPath": "./sample_ssl_creds/server.crt",
+        "webserviceSslCaPath": "./sample_ssl_creds/ca.crt",
+        "webserviceWebsiteDir": "./../admin_website",
+        "webserviceWhitelistedHost": "",
+        "shouldServePublicWebsite": true,
+        "publicWebsitePort": 3001,
+        "publicWebsiteDir": "./../public_website",
+        "publicWebsiteOutputDir": "./../public_website\\exported_documents",
+        "publicWebsiteTreePath": "./../public_website\\exported_documents\\tree.json",
+        "prefsPath": "./prefs.json"
+    }
+}

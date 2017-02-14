@@ -1,4 +1,4 @@
-// The constructor function 
+// The constructor function
 function SingletonSet(member) {
     this.member = member;   // Remember the single member of the set
 }

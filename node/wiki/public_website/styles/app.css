@@ -1,0 +1,164 @@
+/*
+	Requires Compass (though hardly uses it)
+*/
+@import url(consolas-local.css);
+body {
+  width: 100%;
+  background: #fff;
+  font-family: "Consolas", monospace; }
+
+.contentArea {
+  position: relative;
+  margin-left: 250px;
+  overflow: hidden; }
+
+.header {
+  position: absolute;
+  width: 100%;
+  background: #e5e5e5; }
+  .header .headerCrumb {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+    font-size: 10px;
+    color: #9a9a9a;
+    font-weight: normal; }
+  .header .headerTitle {
+    margin-left: 20px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #9a9a9a;
+    font-weight: bold; }
+  .header .headerRight {
+    float: right;
+    margin-top: 9px;
+    margin-right: 7px; }
+    .header .headerRight .headerDate {
+      float: left;
+      margin-top: 8px;
+      margin-right: 9px;
+      margin-left: 5px;
+      text-align: right;
+      color: #9a9a9a;
+      font-size: 9px;
+      line-height: 9px; }
+    .header .headerRight .preview {
+      display: none;
+      float: right;
+      padding-left: 7px;
+      padding-top: 7px;
+      padding-bottom: 5px;
+      border-left: 1px solid #9a9a9a; }
+
+.content {
+  font-size: 12px; }
+
+.content .contentIframe {
+  width: 100%;
+  height: 100%; }
+
+.notfound {
+  text-align: center;
+  padding: 50px;
+  display: none; }
+
+.navButtonsHolder {
+  position: absolute;
+  display: none;
+  z-index: 100; }
+
+.navArea {
+  float: left;
+  position: relative;
+  width: 250px;
+  height: 0px;
+  overflow: auto;
+  color: white;
+  background: #666; }
+
+.navTopButton {
+  display: block;
+  position: absolute;
+  top: 5px;
+  cursor: pointer; }
+
+.navPreview {
+  display: none;
+  position: absolute;
+  top: 100px;
+  cursor: pointer;
+  font-size: 10px; }
+  .navPreview img {
+    opacity: 0.66; }
+
+.nav {
+  margin-left: -15px;
+  margin-top: 7px;
+  padding: 15px 15px 15px 0px; }
+
+.nav ul {
+  margin-left: 20px; }
+
+.nav li {
+  display: block; }
+
+.nav a {
+  text-decoration: none; }
+
+.nav a:link {
+  color: #d5d5d5; }
+
+.nav a:visited {
+  color: #d5d5d5; }
+
+.nav a:hover {
+  color: #d5d5d5;
+  text-decoration: underline; }
+
+.nav a:active {
+  color: #d5d5d5; }
+
+.nav a.selectedItem {
+  color: orange;
+  text-decoration: none;
+  cursor: default; }
+
+.nav li div img {
+  display: inline-block; }
+
+.nav li div.navItemInner1 {
+  float: left;
+  margin-right: 6px; }
+
+.nav li div.navItemInner2 {
+  overflow: hidden; }
+
+.nav li.navItemFolder {
+  height: 25px;
+  margin-left: 0px;
+  font-family: "Consolas", monospace;
+  font-size: 13px; }
+
+.nav li.navItemFolder div.navItemInner1 img {
+  padding-top: 3.75px;
+  height: 17.5px; }
+
+.nav li.navItemFolder div.navItemInner2 {
+  height: 25px;
+  line-height: 25px; }
+
+.nav li.navItemFile {
+  height: 25px;
+  margin-left: 0px;
+  font-family: "Consolas", monospace;
+  font-size: 11px; }
+
+.nav li.navItemFile div.navItemInner1 img {
+  padding-top: 3.75px;
+  height: 17.5px; }
+
+.nav li.navItemFile div.navItemInner2 {
+  height: 25px;
+  line-height: 25px; }
+
+/*# sourceMappingURL=app.css.map */

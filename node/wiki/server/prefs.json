@@ -1,0 +1,30 @@
+{
+    "dev": {
+        "googleApiClientId": null,
+        "googleApiClientSecret": null,
+        "googleApiRedirectUrl": null,
+        "userDisplayName": null,
+        "refreshToken": null,
+        "driveBaseFolderId": null,
+        "driveDefaultDocumentId": null,
+        "wikiTitle": null,
+        "refreshIntervalCode": -1,
+        "mimeTypesToExport": [
+            "text/html"
+        ]
+    },
+    "prod": {
+        "googleApiClientId": null,
+        "googleApiClientSecret": null,
+        "googleApiRedirectUrl": null,
+        "userDisplayName": null,
+        "refreshToken": null,
+        "driveBaseFolderId": null,
+        "driveDefaultDocumentId": null,
+        "wikiTitle": null,
+        "refreshIntervalCode": -1,
+        "mimeTypesToExport": [
+            "text/html"
+        ]
+    }
+}
