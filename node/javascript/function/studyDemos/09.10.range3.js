@@ -61,7 +61,9 @@
 	Set.prototype.size = function () {
 		return this.n;
 	};
-
+	Set.prototype.speak = function () {
+		console.log(this.member) ;
+	};
 // Call function f on the specified context for each element of the set.
 	Set.prototype.foreach = function (f, context) {
 		for (var s in this.values) {
@@ -195,11 +197,11 @@
 			return x === this.member;
 		}
 	});
-	function SingletonSet2(name) {
-		this.name = name;   // Remember the single member of the set
-	}
-	SingletonSet2.prototype = inherit(Set.prototype);
-	SingletonSet.extend(SingletonSet2,{'speak':function(){ console.log(this.age);}},{"age":14});
-	var singletonSet = new SingletonSet2('yao');
+	// function SingletonSet2(name) {
+	// 	this.name = name;   // Remember the single member of the set
+	// }
+	//SingletonSet2.prototype = inherit(Set.prototype);
+	//SingletonSet.extend(SingletonSet2.prototype.constructor,{'speak':function(){ console.info(this);}},{"age":14});
+	var singletonSet = new SingletonSet('yao');
 	singletonSet.speak();
 })();
