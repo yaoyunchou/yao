@@ -130,3 +130,4 @@ Deck.prototype.deal = function (n) {
 var deck = (new Deck()).shuffle();
 console.info(deck);
 var hand = deck.deal(13).sort(Card.orderBySuit);
+console.log(hand);

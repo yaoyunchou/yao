@@ -90,7 +90,9 @@
 	Set.prototype.size = function () {
 		return this.n;
 	};
-
+	Set.prototype.speak = function () {
+		console.log(this.member) ;
+	};
 // Call function f on the specified context for each element of the set.
 	Set.prototype.foreach = function (f, context) {
 		for (var s in this.values) {
