@@ -8,11 +8,40 @@
 	 * @param o
 	 * @param p
 	 */
-	function extend(o, p) {
-		for (var prop in p) {
-			o[prop] = p[prop];
+	var extend = (function() {
+		var protoprops = ["toString", "valueOf", "constructor", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable","toLocaleString"];
+		// Assign the return value of this function
+		// First check for the presence of the bug before patching it.
+		for(var p in {toString:null}) {
+			// If we get here, then the for/in loop works correctly and we return
+			// a simple version of the extend() function
+			return function extend(o) {
+				for(var i = 1; i < arguments.length; i++) {
+					var source = arguments[i];
+					for(var prop in source) o[prop] = source[prop];
+				}
+				return o;
+			};
 		}
-	}
+		// If we get here, it means that the for/in loop did not enumerate
+		// the toString property of the test object. So return a version
+		// of the extend() function that explicitly tests for the nonenumerable
+		// properties of Object.prototype.
+		return function patched_extend(o) {
+			for(var i = 1; i < arguments.length; i++) {
+				var source = arguments[i];
+				// Copy all the enumerable properties
+				for(var prop in source) o[prop] = source[prop];
+				
+				// And now check the special-case properties
+				for(var j = 0; j < protoprops.length; j++) {
+					prop = protoprops[j];
+					if (source.hasOwnProperty(prop)) o[prop] = source[prop];
+				}
+			}
+			return o;
+		};
+	}());
 	
 	/**
 	 *
@@ -70,6 +99,8 @@
 			}
 		}
 	};
+	
+	Set.prototype.speak = function(){ console.log(this.member);};
 
 // This internal function maps any JavaScript value to a unique string.
 	Set._v2s = function (val) {
@@ -197,9 +228,17 @@
 	});
 	function SingletonSet2(name) {
 		this.name = name;   // Remember the single member of the set
+		console.log(this.constructor.age);
 	}
-	SingletonSet2.prototype = inherit(Set.prototype);
-	SingletonSet.extend(SingletonSet2,{'speak':function(){ console.log(this.age);}},{"age":14});
-	var singletonSet = new SingletonSet2('yao');
+	
+	var singletonSet = new SingletonSet('yao');
+	SingletonSet.extend(SingletonSet2,{
+		'speak':function(){ console.log(this.name);}
+	},{"age":14});
 	singletonSet.speak();
+	var singletonSet2 = new SingletonSet2('chou');
+	
+	//singletonSet2.speak();
+	//console.log(singletonSet2.age);
+	console.log(singletonSet instanceof Object);
 })();

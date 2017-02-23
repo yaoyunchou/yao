@@ -37,6 +37,6 @@ var extend = (function() {  // Assign the return value of this function
     };
 
     // This is the list of special-case properties we check for
-    var protoprops = ["toString", "valueOf", "constructor", "hasOwnProperty",
-                      "isPrototypeOf", "propertyIsEnumerable","toLocaleString"];
+    var protoprops = ["toString", "valueOf", "constructor", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable","toLocaleString"];
+    extend();
 }());
