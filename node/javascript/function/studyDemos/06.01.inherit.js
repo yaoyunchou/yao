@@ -22,5 +22,5 @@
 		f.prototype = p;
 		return new f();
 	}
-	module.exports = inhert;
+	module.exports = {inhert};
 })();

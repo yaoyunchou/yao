@@ -29,5 +29,5 @@
 		f.prototype = p;
 		return new f();
 	}
-	module.exports = inherit;
+	module.exports = {inherit};
 })();

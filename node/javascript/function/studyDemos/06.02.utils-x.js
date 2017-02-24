@@ -108,5 +108,5 @@
 		}
 		return result;
 	}
-	module.exports = { extend:extend,mege:mege,restrict:restrict,union:union,intersection:intersection};
+	module.exports = { extend,mege,restrict,subtract,union,intersection,keys};
 })();

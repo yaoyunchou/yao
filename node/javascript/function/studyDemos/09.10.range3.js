@@ -54,7 +54,7 @@
 	}
 	
 	/**
-	 *
+	 *初始化this
 	 * @returns {Set}
 	 */
 	Set.prototype.add = function () {
@@ -234,6 +234,7 @@
 	}
 	
 	var singletonSet = new SingletonSet('yao');
+	console.log(singletonSet);
 	SingletonSet.extend(SingletonSet2,{
 		'speak':function(){ console.log(this.name);}
 	},{"age":14});
