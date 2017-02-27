@@ -144,7 +144,7 @@ Wechat.prototype.loadMaterial = function loadMaterial(permanent) {
         that.fetchAccessToken().then(function (data) {
 
             var url = uploadUrl + 'access_token=' + data.access_token ;
-            url = url.replace(/https:/,'http:')
+            url = url.replace(/https:/,'http:');
             var options = {
                 method: 'POST',
                 url:url,
