@@ -28,7 +28,7 @@ module.exports = function (opts,handler) {
 			yield  materal.imgList.call(this, next);
 		}else if(this.path === '/material/materialInfoNews') {
 			yield  materal.newsList.call(this, next);
-		}else if(this.path === ''){
+		}else if(this.path === '/'){
 			if (this.method === 'GET') {
 				if (sha === signature) {
 					this.body = echostr + '';
@@ -52,11 +52,11 @@ module.exports = function (opts,handler) {
 				this.weixin = message;
 				//把message拿到后就交给业务层;
 				yield  handler.call(this,next);
-
+				if(this.body){
+					wechat.reply.call(this);
+				}
 			}
-		}
-		if(this.body){
-			wechat.reply.call(this);
+
 		}
 	};
 };

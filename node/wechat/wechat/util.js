@@ -53,8 +53,12 @@ exports.formatMessage = formatMessage;
 exports.tpl = function tpl(content,message){
 	var info = {};
 	var type = 'text';
-	var formUserName = message.FromUserName;
-	var toUsername = message.ToUserName;
+	var formUserName,toUsername;
+	if(message){
+		formUserName = message.FromUserName||'';
+		toUsername = message.ToUserName||'';
+	}
+
 
 	if(content){
 		type = content.type||type;
@@ -65,7 +69,7 @@ exports.tpl = function tpl(content,message){
 	info.content = content;
 	info.createTime = new Date().getTime();
 	info.msgType = type;
-	info.toUserName = toUsername;
-	info.formUserName = formUserName;
+	info.toUserName = toUsername ||'';
+	info.formUserName = formUserName||'';
 	return template.compiled(info);
 };

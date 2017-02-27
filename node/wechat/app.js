@@ -10,7 +10,7 @@ var serve= require('koa-static');
 
 
 var app = new Koa();
-app.use(serve(__dirname + '/view'));
+//app.use(serve(__dirname + '/view'));
 app.use(wechat(config.wechat,weixin.reply));
 app.listen(80);
 console.log('Listening:80');
