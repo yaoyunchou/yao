@@ -5,8 +5,8 @@
 	"use strict";
 	function extend(o,p){
 		var prop;
-		for(prop in p){
-			o[prop] = p[prop];
+		for(prop in p){//jshint ignore: line
+				o[prop] = p[prop];
 		}
 		return o;
 	}

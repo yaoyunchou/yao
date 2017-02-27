@@ -8,7 +8,7 @@ var wechatApi = require('../../weixin').wechatApi;
 var _ = require('lodash');
 var Materal = function(){
 
-}
+};
 
 Materal.prototype.imgList =function*(next) {
     var query = this.query;
