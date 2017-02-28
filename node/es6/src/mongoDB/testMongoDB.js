@@ -2,27 +2,24 @@ import {MongoClient} from 'mongodb';
 import assert from 'assert';
 import {mongodbConfig} from '../config';
 
-
 var url = mongodbConfig.url;
-
 
 function connect(handler) {
 	MongoClient.connect(url, function (err, db) {
 		assert.equal(null, err);
 		console.log("Connected successfully to server");
-		handler.call(this,db, function (result) {
-			console.log(result);
-			db.close();
-		});
+		handler(db, ()=>db.close());
 	});
 }
+
+
 /**
  * 插入数据
  * @param document
  * @param conllectionName
  */
 var insertDocuments = function insertDocuments(document, conllectionName) {
-	connect(function (db, callback) {
+	connect((db, callback)=> {
 		// Get the documents collection
 		let collection = db.collection(conllectionName);
 		// Insert some documents
@@ -64,6 +61,6 @@ var updateDocument = function updateDocument(collectionName,query){
 		});
 	});
 };
-insertDocuments([{name:'yaoyunchou'},{name:'huangtt'}],'yao');
+
 export {insertDocuments, findDocuments,updateDocument};
 

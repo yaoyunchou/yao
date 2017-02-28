@@ -21,12 +21,12 @@ function connect(handler) {
 	_mongodb.MongoClient.connect(url, function (err, db) {
 		_assert2.default.equal(null, err);
 		console.log("Connected successfully to server");
-		handler.call(this, db, function (result) {
-			console.log(result);
-			db.close();
+		handler(db, function () {
+			return db.close();
 		});
 	});
 }
+
 /**
  * 插入数据
  * @param document
@@ -75,7 +75,7 @@ var updateDocument = function updateDocument(collectionName, query) {
 		});
 	});
 };
-insertDocuments([{ name: 'yaoyunchou' }, { name: 'huangtt' }], 'yao');
+
 exports.insertDocuments = insertDocuments;
 exports.findDocuments = findDocuments;
 exports.updateDocument = updateDocument;

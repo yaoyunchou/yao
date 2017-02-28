@@ -86,30 +86,28 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 		(_console = console).log.apply(_console, _toConsumableArray(obj3.m()));
 	}
 	{
-		(function () {
-			/**
-    * 克隆对象
-    * @param origin
-    * @returns {*}
-    */
-			var Animal = function Animal(name) {
-				this.name = name;
-			};
-			Animal.prototype.speak = function () {
-				console.log('my name is' + this.name);
-			};
-			var Cat = function Cat() {
-				Animal.apply(this, arguments);
-			};
-			Cat.prototype = Animal.prototype;
-			Cat.prototype.constructor = Cat;
-			var cat = new Cat('花猫');
-			cat.speak();
-			var clone = function clone(origin) {
-				var originProto = Object.getPrototypeOf(origin);
-				return Object.assign(Object.create(originProto), origin);
-			};
-		})();
+		/**
+   * 克隆对象
+   * @param origin
+   * @returns {*}
+   */
+		var Animal = function Animal(name) {
+			this.name = name;
+		};
+		Animal.prototype.speak = function () {
+			console.log('my name is' + this.name);
+		};
+		var Cat = function Cat() {
+			Animal.apply(this, arguments);
+		};
+		Cat.prototype = Animal.prototype;
+		Cat.prototype.constructor = Cat;
+		var cat = new Cat('花猫');
+		cat.speak();
+		var clone = function clone(origin) {
+			var originProto = Object.getPrototypeOf(origin);
+			return Object.assign(Object.create(originProto), origin);
+		};
 	}
 	{
 		var _console2;
