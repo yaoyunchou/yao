@@ -51,7 +51,7 @@ var getHtmlFiles = function getHtmlFiles(filePath) {
 					
 					if (val.search(/.html/ig) > 0) {
 						//console.log(val);
-						htmlFilesPath.push(filePath + '\\' + val);
+						htmlFilesPath.push({path:filePath + '\\' + val,fileName:val});
 						///console.log(htmlFilesPath);
 					}
 				});
@@ -64,15 +64,23 @@ var getHtmlDocument = function getHtmlDocument() {
 	var htmlDocs = [];
 	return new Promise(function (resolve, reject) {
 		getHtmlFiles(fileConfig.path).then((htmlFiles)=> {
-			htmlFiles.forEach(function (val, key) {
-				jsdom.env(val,
+			htmlFiles.forEach(function (val) {
+				jsdom.env(val.path,
 					function (err, window) {
 						if (err) {
 							reject("fail");
 						} else {
-							var templat = new EditorTpl({ htmlContent:'<div class="response-blk">' + window.document.body.innerHTML + '</div>' });
+							var htmlContent ='<div class="response-blk">' + window.document.body.innerHTML.replace(/\n/g,'').replace(/\t/g,'') + '</div>';
+							htmlContent = htmlContent.replace('/images\//g','"http://template.51yxwz.com\/');
+							var templat = new EditorTpl({
+								desc: val.fileName,
+								title: window.document.title,
+								name: window.document.title,
+								htmlContent:htmlContent
+							});
 							//console.log(templat)
 							htmlDocs.push(templat);
+							resolve(htmlDocs);
 							resolve(htmlDocs);
 						}
 						
