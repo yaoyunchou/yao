@@ -5,10 +5,15 @@ import {mongodbConfig} from '../config';
 var url = mongodbConfig.url;
 
 function connect(handler) {
-	MongoClient.connect(url, function (err, db) {
-		assert.equal(null, err);
-		console.log("Connected successfully to server");
-		handler(db, ()=>db.close());
+	return new Promise(function(resolve,reject){
+		MongoClient.connect(url, function (err, db) {
+			assert.equal(null, err);
+			if(err){
+				reject(err);
+			}
+			console.log("Connected successfully to server");
+			handler(db, (result)=>{resolve(result);db.close();});
+		});
 	});
 }
 
@@ -23,13 +28,23 @@ var insertDocuments = function insertDocuments(document, conllectionName) {
 		// Get the documents collection
 		let collection = db.collection(conllectionName);
 		// Insert some documents
-		collection.insertMany(document, function (err, result) {
-			assert.equal(err, null);
-			//assert.equal(3, result.result.n);
-			//assert.equal(3, result.ops.length);
-			console.log("Inserted 3 documents into the collection");
-			callback(result);
-		});
+		if(document instanceof Array){
+			collection.insertMany(document, function (err, result) {
+				assert.equal(err, null);
+				//assert.equal(3, result.result.n);
+				//assert.equal(3, result.ops.length);
+				console.log("Inserted mulitple documents success!");
+				callback(result);
+			});
+		}else{
+			collection.insertOne(document,function(err,result){
+				assert.equal(null,err);
+				console.log("Inserted a single ducment success!");
+				callback(result);
+			});
+			
+		}
+	
 	});
 };
 /**
@@ -39,21 +54,22 @@ var insertDocuments = function insertDocuments(document, conllectionName) {
  */
 var findDocuments = function findDocuments(collectionName, query) {
 	query = query || {};
-	connect(function (db, callback) {
+	
+	return connect(function (db, callback) {
 		let conllection = db.collection(collectionName);
 		conllection.find(query).toArray(function (err, docs) {
 			assert.equal(err, null);
 			console.log("Found the following records");
-			console.log(docs);
 			callback(docs);
 		});
 	});
 };
-
-var updateDocument = function updateDocument(collectionName,query){
+var updateOneDocument = function updateDocument(collectionName,query){
 	connect(function(db,callback){
 		let collection = db.collection(collectionName);
-		collection.updateOne(query.o,query.n,function(err,result){
+		collection.updateOne(query.o,query.n, {
+			upsert: true
+		},function(err,result){
 			assert.equal(err,null);
 			assert.equal(1,result.result.n);
 			console.log("Update the ducument with the field a equal to 2");
@@ -62,5 +78,5 @@ var updateDocument = function updateDocument(collectionName,query){
 	});
 };
 
-export {insertDocuments, findDocuments,updateDocument};
+export {insertDocuments, findDocuments,updateOneDocument};
 

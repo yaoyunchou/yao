@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-exports.updateDocument = exports.findDocuments = exports.insertDocuments = undefined;
+exports.updateOneDocument = exports.findDocuments = exports.insertDocuments = undefined;
 
 var _mongodb = require('mongodb');
 
@@ -18,11 +18,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var url = _config.mongodbConfig.url;
 
 function connect(handler) {
-	_mongodb.MongoClient.connect(url, function (err, db) {
-		_assert2.default.equal(null, err);
-		console.log("Connected successfully to server");
-		handler(db, function () {
-			return db.close();
+	return new Promise(function (resolve, reject) {
+		_mongodb.MongoClient.connect(url, function (err, db) {
+			_assert2.default.equal(null, err);
+			if (err) {
+				reject(err);
+			}
+			console.log("Connected successfully to server");
+			handler(db, function (result) {
+				resolve(result);db.close();
+			});
 		});
 	});
 }
@@ -37,13 +42,21 @@ var insertDocuments = function insertDocuments(document, conllectionName) {
 		// Get the documents collection
 		var collection = db.collection(conllectionName);
 		// Insert some documents
-		collection.insertMany(document, function (err, result) {
-			_assert2.default.equal(err, null);
-			//assert.equal(3, result.result.n);
-			//assert.equal(3, result.ops.length);
-			console.log("Inserted 3 documents into the collection");
-			callback(result);
-		});
+		if (document instanceof Array) {
+			collection.insertMany(document, function (err, result) {
+				_assert2.default.equal(err, null);
+				//assert.equal(3, result.result.n);
+				//assert.equal(3, result.ops.length);
+				console.log("Inserted mulitple documents success!");
+				callback(result);
+			});
+		} else {
+			collection.insertOne(document, function (err, result) {
+				_assert2.default.equal(null, err);
+				console.log("Inserted a single ducment success!");
+				callback(result);
+			});
+		}
 	});
 };
 /**
@@ -53,21 +66,22 @@ var insertDocuments = function insertDocuments(document, conllectionName) {
  */
 var findDocuments = function findDocuments(collectionName, query) {
 	query = query || {};
-	connect(function (db, callback) {
+
+	return connect(function (db, callback) {
 		var conllection = db.collection(collectionName);
 		conllection.find(query).toArray(function (err, docs) {
 			_assert2.default.equal(err, null);
 			console.log("Found the following records");
-			console.log(docs);
 			callback(docs);
 		});
 	});
 };
-
-var updateDocument = function updateDocument(collectionName, query) {
+var updateOneDocument = function updateDocument(collectionName, query) {
 	connect(function (db, callback) {
 		var collection = db.collection(collectionName);
-		collection.updateOne(query.o, query.n, function (err, result) {
+		collection.updateOne(query.o, query.n, {
+			upsert: true
+		}, function (err, result) {
 			_assert2.default.equal(err, null);
 			_assert2.default.equal(1, result.result.n);
 			console.log("Update the ducument with the field a equal to 2");
@@ -78,4 +92,4 @@ var updateDocument = function updateDocument(collectionName, query) {
 
 exports.insertDocuments = insertDocuments;
 exports.findDocuments = findDocuments;
-exports.updateDocument = updateDocument;
+exports.updateOneDocument = updateOneDocument;

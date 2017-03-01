@@ -1,27 +1,27 @@
 import {readdir, readFile} from 'fs';
 import {fileConfig} from '../config';
 import jsdom from 'jsdom';
-import  {insertDocuments, findDocuments, updateDocument} from '../mongoDB/testMongoDB';
+import  {insertDocuments, findDocuments, updateOneDocument} from '../mongoDB/testMongoDB';
 
 
 /*function EditerTpl({imgLg,htmlContent, imgSm, ctgId, projType, title, name, isDeleted, desc, lastUpdTime, createdTime, owner, site}) {
-	this.imgLg = imgLg || '';
-	this.htmlContent = htmlContent || '';
-	this.imgSm = imgSm || '';
-	this.ctgId = ctgId || '';
-	this.projType = projType || '';
-	this.title = title || '';
-	this.name = name || '';
-	this.isDeleted = isDeleted || '';
-	this.desc = desc || '';
-	this.lastUpdTime = lastUpdTime || '';
-	this.createdTime = createdTime || '';
-	this.owner = owner || '';
-	this.site = site || '';
-}*/
+ this.imgLg = imgLg || '';
+ this.htmlContent = htmlContent || '';
+ this.imgSm = imgSm || '';
+ this.ctgId = ctgId || '';
+ this.projType = projType || '';
+ this.title = title || '';
+ this.name = name || '';
+ this.isDeleted = isDeleted || '';
+ this.desc = desc || '';
+ this.lastUpdTime = lastUpdTime || '';
+ this.createdTime = createdTime || '';
+ this.owner = owner || '';
+ this.site = site || '';
+ }*/
 
-class EditorTpl{
-	constructor({imgLg,htmlContent, imgSm, ctgId, projType, title, name, isDeleted, desc, lastUpdTime, createdTime, owner, site}){
+class EditorTpl {
+	constructor({imgLg, htmlContent, imgSm, ctgId, projType, title, name, isDeleted, desc, lastUpdTime, createdTime, owner, site}) {
 		this.imgLg = imgLg || '';
 		this.htmlContent = htmlContent || '';
 		this.imgSm = imgSm || '';
@@ -51,7 +51,7 @@ var getHtmlFiles = function getHtmlFiles(filePath) {
 					
 					if (val.search(/.html/ig) > 0) {
 						//console.log(val);
-						htmlFilesPath.push({path:filePath + '\\' + val,fileName:val});
+						htmlFilesPath.push({path: filePath + '\\' + val, fileName: val});
 						///console.log(htmlFilesPath);
 					}
 				});
@@ -64,29 +64,30 @@ var getHtmlDocument = function getHtmlDocument() {
 	var htmlDocs = [];
 	return new Promise(function (resolve, reject) {
 		getHtmlFiles(fileConfig.path).then((htmlFiles)=> {
-			htmlFiles.forEach(function (val) {
+			htmlFiles.forEach(function (val,key) {
 				jsdom.env(val.path,
 					function (err, window) {
 						if (err) {
 							reject("fail");
 						} else {
-							var htmlContent ='<div class="response-blk">' + window.document.body.innerHTML.replace(/\n/g,'').replace(/\t/g,'') + '</div>';
-							htmlContent = htmlContent.replace('/images\//g','"http://template.51yxwz.com\/');
+							var htmlContent = '<div class="response-blk">' + window.document.body.innerHTML.replace(/\n/g, '').replace(/\t/g, '').replace(/\s{2}/g, '') + '</div>';
+							htmlContent = htmlContent.replace('/images\//g', '"http://template.51yxwz.com\/');
 							var templat = new EditorTpl({
 								desc: val.fileName,
 								title: window.document.title,
 								name: window.document.title,
-								htmlContent:htmlContent
+								htmlContent: htmlContent
 							});
 							//console.log(templat)
 							htmlDocs.push(templat);
-							resolve(htmlDocs);
-							resolve(htmlDocs);
+							if(key === htmlFiles.length-1){
+								resolve(htmlDocs);
+							}
 						}
-						
 					}
 				);
 			});
+			
 		});
 	});
 	
@@ -94,6 +95,17 @@ var getHtmlDocument = function getHtmlDocument() {
 
 
 getHtmlDocument().then(function (htmlDocs) {
-	insertDocuments(htmlDocs, 'yao');
+	htmlDocs.forEach(function (val) {
+		findDocuments('yao', {desc: val.desc}).then(function (data) {
+			if(data.length){
+				updateOneDocument('yao',{o:{desc: val.desc}, n:{$set: val}});
+			} else {
+				insertDocuments(val, 'yao');
+			}
+		});
+		
+	});
+	
+	
 });
 	

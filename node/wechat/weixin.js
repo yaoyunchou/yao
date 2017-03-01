@@ -133,8 +133,6 @@ exports.reply = function*(next) {
         console.log("返回的replay是:" + JSON.stringify(replay));
         this.body = replay;
     }
-
-
     yield next;
 };
 
