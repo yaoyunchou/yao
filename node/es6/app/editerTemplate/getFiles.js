@@ -92,12 +92,16 @@ var getHtmlDocument = function getHtmlDocument() {
 					if (err) {
 						reject("fail");
 					} else {
-						var htmlContent = '<div class="response-blk">' + window.document.body.innerHTML.replace(/\n/g, '').replace(/\t/g, '').replace(/\s{2}/g, '') + '</div>';
-						htmlContent = htmlContent.replace('/images\//g', '"http://template.51yxwz.com\/');
+						var htmlContent = '<div class="response-blk">' + window.document.getElementById('htmlContent').innerHTML.replace(/\n/g, '').replace(/\t/g, '').replace(/\s{2}/g, '') + ' </div>';
+						htmlContent = htmlContent.replace(/images\//g, 'http://template.51yxwz.com\/');
 						var templat = new EditorTpl({
 							desc: val.fileName,
 							title: window.document.title,
 							name: window.document.title,
+							projType: window.document.getElementById('projType') ? window.document.getElementById('projType').innerHTML : "",
+							ctgId: window.document.getElementById('ctgId') ? window.document.getElementById('ctgId').innerHTML : "",
+							imgSm: window.document.getElementById('imgSm') ? window.document.getElementById('imgSm').innerHTML : "",
+							imgLg: window.document.getElementById('imgLg') ? window.document.getElementById('imgLg').innerHTML : "",
 							htmlContent: htmlContent
 						});
 						//console.log(templat)
